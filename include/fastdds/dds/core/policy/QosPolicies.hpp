@@ -1688,6 +1688,11 @@ public:
      * By default, 100.
      */
     int32_t allocated_samples;
+    /**
+     * @brief Represents the extra number of samples available once the max_samples have been reached in the history.
+     * This makes it possible, for example, to loan samples even with a full history. By default, 1.
+     */
+    int32_t extra_samples;
 
     /**
      * @brief Constructor
@@ -1699,6 +1704,7 @@ public:
         , max_instances(10)
         , max_samples_per_instance(400)
         , allocated_samples(100)
+        , extra_samples(1)
     {
     }
 

@@ -315,19 +315,6 @@ bool StatelessReader::nextUntakenCache(
         }
     }
 
-    if (found)
-    {
-        if (!(*change)->isRead)
-        {
-            if (0 < total_unread_)
-            {
-                --total_unread_;
-            }
-        }
-
-        (*change)->isRead = true;
-    }
-
     return found;
 }
 
@@ -370,11 +357,6 @@ bool StatelessReader::nextUnreadCache(
     if (found)
     {
         *change = *it;
-        if (0 < total_unread_)
-        {
-            --total_unread_;
-        }
-        (*change)->isRead = true;
     }
     else
     {
@@ -397,6 +379,21 @@ bool StatelessReader::change_removed_by_history(
     }
 
     return true;
+}
+
+void StatelessReader::change_read_by_user(
+            CacheChange_t* change,
+            const WriterProxy* /*writer*/)
+{
+    // Mark change as read
+    if (!change->isRead)
+    {
+        change->isRead = true;
+        if (0 < total_unread_)
+        {
+            --total_unread_;
+        }
+    }
 }
 
 bool StatelessReader::processDataMsg(

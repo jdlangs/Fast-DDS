@@ -278,6 +278,16 @@ public:
     virtual void assert_writer_liveliness(
             const GUID_t& writer) = 0;
 
+    /**
+     * Called when the user has retrieved a change from the history.
+     * @param change Pointer to the change to ACK
+     * @param writer Writer proxy of the \c change.
+     */
+    virtual void change_read_by_user(
+            CacheChange_t* change,
+            const WriterProxy* writer) = 0;
+
+
 protected:
 
     virtual bool may_remove_history_record(

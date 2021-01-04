@@ -23,7 +23,7 @@
 #include <iostream>
 
 #if defined(_WIN32)
-#include <xthreads.h>
+#include <thread>
 extern int clock_gettime(
         int,
         struct timespec* tv);

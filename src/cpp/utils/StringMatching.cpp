@@ -64,8 +64,8 @@ bool StringMatching::matchPattern(
     std::string path(pattern);
     std::string spec(str);
 
-    replace_all(pattern, "*", ".*");
-    replace_all(pattern, "?", ".");
+    replace_all(path, "*", ".*");
+    replace_all(path, "?", ".");
 
     std::regex path_regex(path);
     std::smatch spec_match;

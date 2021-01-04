@@ -388,7 +388,12 @@ RTPSParticipant* RTPSDomain::clientServerEnvironmentCreationOverride(
     std::string list;
     {
 #pragma warning(suppress:4996)
-        const char* data = std::getenv(DEFAULT_ROS2_MASTER_URI);
+        const char* data = nullptr;
+        
+        #if defined(__cplusplus_winrt)
+        #else
+        data = std::getenv(DEFAULT_ROS2_MASTER_URI);
+        #endif
 
         if (nullptr != data)
         {

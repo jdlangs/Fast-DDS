@@ -18,6 +18,10 @@
 #include <asio.hpp>
 #include <fastdds/rtps/common/Locator.h>
 
+#ifdef interface
+    #undef interface
+#endif
+
 namespace eprosima{
 namespace fastdds{
 namespace rtps{

@@ -34,6 +34,10 @@
 #include <memory>
 #include <mutex>
 
+#ifdef interface
+    #undef interface
+#endif
+
 namespace eprosima{
 namespace fastdds{
 namespace rtps{

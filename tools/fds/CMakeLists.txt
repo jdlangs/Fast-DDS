@@ -77,10 +77,10 @@ target_link_libraries(${PROJECT_NAME} fastrtps fastcdr)
 
 # Properties that change bin names depending on current config.
 # This is convenient because on installation all bins share folder
-set_target_properties(${PROJECT_NAME} PROPERTIES RELEASE_POSTFIX -${PROJECT_VERSION})
-set_target_properties(${PROJECT_NAME} PROPERTIES MINSIZEREL_POSTFIX m-${PROJECT_VERSION})
-set_target_properties(${PROJECT_NAME} PROPERTIES RELWITHDEBINFO_POSTFIX rd-${PROJECT_VERSION})
-set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX d-${PROJECT_VERSION})
+# set_target_properties(${PROJECT_NAME} PROPERTIES RELEASE_POSTFIX -${PROJECT_VERSION})
+# set_target_properties(${PROJECT_NAME} PROPERTIES MINSIZEREL_POSTFIX m-${PROJECT_VERSION})
+# set_target_properties(${PROJECT_NAME} PROPERTIES RELWITHDEBINFO_POSTFIX rd-${PROJECT_VERSION})
+# set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX d-${PROJECT_VERSION})
 
 ###############################################################################
 # Installation 
@@ -123,9 +123,9 @@ if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.14")
     # add symlink
     if( WIN32 )
         # Use powershell to generate the link
-        install(
-          CODE "execute_process( COMMAND PowerShell -Command \"if( test-path ${PROJECT_NAME}.exe -PathType Leaf ) { rm ${PROJECT_NAME}.exe } ; New-Item -ItemType SymbolicLink -Target $<TARGET_FILE_NAME:${PROJECT_NAME}> -Path ${PROJECT_NAME}.exe \" ERROR_QUIET RESULTS_VARIABLE SYMLINK_FAILED WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}\") \n if( SYMLINK_FAILED ) \n message(STATUS \"Windows requires admin installation rights to create symlinks. A bat script will be provided instead.\") \n set(FAST_SERVER_BINARY_NAME $<TARGET_FILE_NAME:${PROJECT_NAME}>) \n configure_file(${CMAKE_CURRENT_LIST_DIR}/fast-discovery-server.bat.in ${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}${MSVCARCH_DIR_EXTENSION}/${PROJECT_NAME}.bat @ONLY) \n endif()"
-          COMPONENT discovery)
+        # install(
+        #   CODE "execute_process( COMMAND PowerShell -Command \"if( test-path ${PROJECT_NAME}.exe -PathType Leaf ) { rm ${PROJECT_NAME}.exe } ; New-Item -ItemType SymbolicLink -Target $<TARGET_FILE_NAME:${PROJECT_NAME}> -Path ${PROJECT_NAME}.exe \" ERROR_QUIET RESULTS_VARIABLE SYMLINK_FAILED WORKING_DIRECTORY \"${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}\") \n if( SYMLINK_FAILED ) \n message(STATUS \"Windows requires admin installation rights to create symlinks. A bat script will be provided instead.\") \n set(FAST_SERVER_BINARY_NAME $<TARGET_FILE_NAME:${PROJECT_NAME}>) \n configure_file(\"${CMAKE_CURRENT_LIST_DIR}/fast-discovery-server.bat.in\" \"${CMAKE_INSTALL_PREFIX}/${BIN_INSTALL_DIR}${MSVCARCH_DIR_EXTENSION}/${PROJECT_NAME}.bat\" @ONLY) \n endif()"
+        #   COMPONENT discovery)
     else()
         # Use ln to create the symbolic link. We remove the version from the file name but keep the debug suffix 
         install(

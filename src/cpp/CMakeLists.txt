@@ -445,7 +445,7 @@ elseif(NOT EPROSIMA_INSTALLER)
     endif()
 
     # Link library to external libraries.
-    target_link_libraries(${PROJECT_NAME} ${PRIVACY} fastcdr foonathan_memory
+    target_link_libraries(${PROJECT_NAME} ${PRIVACY} fastcdr
         ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_DL_LIBS}
         ${TINYXML2_LIBRARY}
         $<$<BOOL:${LINK_SSL}>:OpenSSL::SSL$<SEMICOLON>OpenSSL::Crypto>
@@ -453,6 +453,9 @@ elseif(NOT EPROSIMA_INSTALLER)
         ${THIRDPARTY_BOOST_LINK_LIBS}
         $<$<BOOL:${LINK_LIBATOMIC}>:atomic>
         )
+    
+    # External libraries needed to build the headers here
+    target_link_libraries(${PROJECT_NAME} PUBLIC foonathan_memory)
 
     if(MSVC OR MSVC_IDE)
         set_target_properties(${PROJECT_NAME} PROPERTIES RELEASE_POSTFIX -${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR})
